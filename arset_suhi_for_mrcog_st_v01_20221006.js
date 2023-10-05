@@ -26,8 +26,8 @@ Out: clipped image of mean daytime surface temperature (ST).
 //****************** USER INPUTS *********************//
 /*
 Note:
-To modify export, see lines 188-196.
-To modify map window image, see lines 190-198.
+To modify export, see lines 196-203.
+To modify map window image, see lines 186-193.
 */
 /*
 Enter date as the day of the year.
@@ -75,9 +75,11 @@ Map.setOptions('TERRAIN');
 // Zoom level ranges from 0 to 24, with 0 being global and 24 being the smallest region possible.
 // Latitude must be within [-85, 85].
 // Adjust the long/lat for your own aoi.
+
 /* Option 1: Center at Big I in Albquerque, zoom level 9.
 	Comment (//) one option so only the other is used. */
 // Map.setCenter(-106.629260, 35.105125, 9);
+
 /* Option 2: Center at centroid of AoI.
 	Comment (//) one option so only the other is used. */
 var geom = STUDYBOUNDS.centroid(0.001);
@@ -96,6 +98,7 @@ https://stackoverflow.com/questions/53629403/google-earth-engine-ee-number-to-in
 
 //****** DO NOT MODIFY ******//
 
+// Assign a variable to filter days by range.
 var DATE_RANGE = ee.Filter.dayOfYear(start_day, end_day);
 // Assign a variable to filter years from 2010 – 2022.
 // Adjust the YEAR_RANGE for your own UHI study.
@@ -189,6 +192,7 @@ Map.addLayer(clip_mean_ST, {
   min: 50, max: 140, 
   palette: ['blue','white','red']}, "ST", DISPLAY);
 
+// Export the image to your Google Drive.
 Export.image.toDrive({
   image: clip_mean_ST,
   description: 'MeanST_MRCOG_2013_2022_JulAug',
